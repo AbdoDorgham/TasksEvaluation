@@ -1,0 +1,42 @@
+﻿@using TasksEvaluation.Core.DTOs
+
+@{
+	ViewData["Title"] = "Delete";
+}
+@model StudentDto
+
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+  <div class="text-center">
+	<table class="table table-bordered table-striped">
+		<tr>
+			<th>Student Name</th>
+			<th>Student Phone</th>
+			<th>Student Email</th>
+			<th>Student Photo</th>
+
+		</tr>
+
+		<tr>
+			<td class="">@Model.FullName</td>
+			<td>@Model.MobileNumber</td>
+			<td>@Model.Email</td>
+			<td><img height="50px" width="50px" src="@Model.ProfilePic" alt="Alternate Text" /></td>
+		</tr>
+
+
+	</table>
+	<h3>Are you Sure to Delete @Model.FullName Student ? </h3>
+	<form asp-action="Delete">
+		<div class="form-group">
+			<input asp-for="Id" hidden class="form-control" />
+			<input type="submit" value="Delete" class="btn btn-danger" />
+			<a class="btn btn-secondary" asp-action="GetAllStudents">Back To List</a>
+		</div>
+
+
+	</form>
+
+</div>

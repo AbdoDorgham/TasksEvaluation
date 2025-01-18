@@ -1,0 +1,15 @@
+﻿@using TasksEvaluation.Core.DTOs
+@model IEnumerable<StudentDto>
+@{
+	ViewData["Title"] = "Student Page";
+}
+<div class="text-center">
+	@foreach (var student in Model)
+	{
+		<p>@student.Id</p>
+		<p>@student.FullName</p>
+		<p>@student.Group?.Title</p>
+@* 		<p>@student.Group.Title</p>
+ *@	}
+
+</div>

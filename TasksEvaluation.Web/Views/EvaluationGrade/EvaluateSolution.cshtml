@@ -1,0 +1,48 @@
+﻿@using TasksEvaluation.Core.DTOs
+@using TasksEvaluation.Web.ViewModels
+@model SolutionGradeVM 
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+@{
+	var solution = ViewData["solution"] as SolutionDto;
+}
+<style>
+	option[value = "0"] {
+		display: none;
+	}
+</style>
+<h3>Evaluate Solution</h3>
+<hr />
+<h4>Solution Notes</h4>
+<p>@solution.Notes</p>
+<h4>Download Solution</h4>
+<p class="mb-0">@solution.SolutionFile.Substring(solution.SolutionFile.LastIndexOf('/') +1)</p>
+<a class="btn btn-secondary mt-0" href="@solution.SolutionFile" download>Download Solution</a>
+<div class="row">
+	<div class="col-md-4">
+		<form asp-controller="EvaluationGrade" asp-action="EvaluateSolution" method="post" enctype="multipart/form-data">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+			<div class="form-group">
+				<input asp-for="SolutionId" type="hidden" value="@solution.Id" />
+				<span asp-validation-for="SolutionId" class="text-danger"></span>
+			</div>
+
+			<div class="form-group mt-3">
+				<label asp-for="GradeId" class="control-label">Grade</label>
+				<select asp-for="GradeId" class="form-control" asp-items="@ViewBag.GradeId">
+				</select>
+			</div>
+
+
+			<div class="form-group mt-3">
+				<input type="submit" value="Evaluate" class="btn btn-primary" />
+				<a class="btn btn-secondary" asp-controller="Solution" asp-action="GetAllSolutions">Back to Solutions</a>
+
+			</div>
+
+		</form>
+	</div>
+</div>

@@ -1,0 +1,76 @@
+﻿@using TasksEvaluation.Core.DTOs
+@using Microsoft.AspNetCore.Identity
+@using TasksEvaluation.Web.Controllers
+@inject SignInManager<IdentityUser> signInManager
+@model IEnumerable<AssignmentDto>
+@{
+	ViewData["Title"] = "All Assignments";
+	var student = ViewData["Student"] as StudentDto;
+}
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+	<h4 class="">Assignment List</h4>
+	<a asp-controller="Assignment" asp-action="Create" class="btn btn-added float-end btn-info mb-3"><img src="/images/plus.svg" alt="img">Add New Assignment</a>
+	<p>Manage Your Assignments</p>
+
+	<div class="text-center">
+
+		<table class="table table-bordered table-striped">
+			<tr>
+				<th>Assignment Title</th>
+				<th>Assignment Description</th>
+				<th>Assignment DeadLine</th>
+				<th>Group</th>
+				<th></th>
+			</tr>
+			@foreach (var assignment in Model)
+			{
+				<tr>
+					<td class="">@assignment.Title</td>
+					<td>@assignment.Description</td>
+					<td>@assignment.Deadline</td>
+					<td>@assignment.Group.Title</td>
+					<td>
+						<a class="btn btn-primary" asp-action="Edit" asp-route-id="@assignment.Id">Edit</a>
+						<a class="btn btn-danger" asp-action="Delete" asp-route-id="@assignment.Id">Delete</a>
+					</td>
+				</tr>
+			}
+		</table>
+	</div>
+
+@* else
+{
+	<h3 class="text-center">Your Assignment List</h3>
+	<div class="row">
+		@foreach (var assignment in Model)
+		{
+
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-body text-center">
+						<h5 class="card-title">@assignment.Title</h5>
+						<h5 class="card-title">@assignment.Description</h5>
+						<p class="card-text text-danger fw-bold">DeadLine : @assignment.Deadline</p>
+						@if (assignment.Solution is null)
+						{
+							<a class="btn btn-primary" href="@Url.Action(nameof(SolutionController.Create),"Solution",
+										new { studentId = student.Id, assignmentId = assignment.Id  })">Upload Solution</a>
+
+						}
+						else
+						{
+							<button class="btn btn-primary" type="submit" disabled="disabled">Solution Uploaded</button>
+							<a class="btn btn-secondary" href="@Url.Action(nameof(EvaluationGradeController.ShowGrade),"EvaluationGrade",
+										new { solutionId = assignment.Solution.Id})">Show Grade</a>
+						}
+					</div>
+				</div>
+			</div>
+
+		}
+	</div>
+
+} *@

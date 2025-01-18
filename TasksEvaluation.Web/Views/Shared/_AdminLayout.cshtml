@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+    @using Microsoft.AspNetCore.Identity;
+    @inject SignInManager<IdentityUser> signInManager
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TasksEvaluation.Web.styles.css" asp-append-version="true" />
+    <title> Admin Dashboard</title>
+   
+</head>
+<style>
+    body {
+        display: flex;
+        margin: 0;
+        height: 100vh;
+    }
+
+    .sidenav {
+        background-color: #f1f1f1;
+        height: 100%;
+        width: 150px;
+        position: fixed;
+        z-index: 1;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            display: block;
+        }
+
+            .sidenav a:hover {
+                color: white;
+                background-color: dodgerblue;
+            }
+
+    .main {
+        margin-left: 300px;
+        padding: 20px;
+        height: 100%;
+    }
+</style>
+<body>
+
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light sidenav" style="width: 280px;">
+        <span class="fs-4 text-center">Dashboard</span>
+
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                <a asp-controller="Student" asp-action="GetAllStudents" class="nav-link link-dark" aria-current="page">
+                        <svg class="bi me-2" width="16" height="16"></svg>
+                        Students
+                    </a>
+                </li>
+                <li>
+                <a asp-controller="Assignment" asp-action="GetAllAssignments" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#table" /></svg>
+                        Assignments
+                    </a>
+                </li>
+            <li>
+                <a asp-controller="Solution" asp-action="GetAllSolutions" class="nav-link link-dark">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#table" /></svg>
+                    Evaluate Solutions
+                </a>
+            </li>
+
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+               <strong>@User?.Identity?.Name</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                <li><a class="dropdown-item" asp-action="Register" asp-controller="Account">Register</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" asp-action="ChangePassword" asp-controller="Account">Change Password</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Log out</a></li>
+                </ul>
+            </div>
+        </div>
+
+    <div class="container main bg-white">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿@using TasksEvaluation.Core.DTOs
+
+@{
+	ViewData["Title"] = "Delete";
+}
+@model AssignmentDto
+
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+ <div class="text-center">
+	<table class="table table-bordered table-striped">
+		<tr>
+			<th>Assignment Title</th>
+			<th>Assignment Description</th>
+			<th>Assignment DeadLine</th>
+
+		</tr>
+
+		<tr>
+			<td class="">@Model.Title</td>
+			<td>@Model.Description</td>
+			<td>@Model.Deadline</td>
+
+		</tr>
+
+
+	</table>
+	<h3>Are you Sure to Delete @Model.Title Assignment ? </h3>
+	<form asp-action="Delete">
+		<div class="form-group">
+			<input asp-for="Id" hidden class="form-control" />
+			<input type="submit" value="Delete" class="btn btn-danger" />
+			<a class="btn btn-secondary" asp-action="GetAllAssignments">Back To List</a>
+		</div>
+
+
+	</form>
+
+</div>

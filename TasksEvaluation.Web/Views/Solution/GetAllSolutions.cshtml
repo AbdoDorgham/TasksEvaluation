@@ -1,0 +1,39 @@
+﻿@using TasksEvaluation.Core.DTOs
+@model IEnumerable<SolutionDto>
+@{
+	ViewData["Title"] = "All Solutions";
+
+}
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h3 class="text-center">All Solutions Uploaded.</h3>
+<hr />
+<table class="table table-bordered table-striped text-center">
+	<tr>
+		<th>Solution File Type</th>
+		<th>Notes</th>
+		<th></th>
+	</tr>
+	@foreach (SolutionDto solution in Model)
+	{
+
+		<tr>
+			<td>@solution.SolutionFile.Substring(solution.SolutionFile.LastIndexOf('.') + 1)</td>
+			<td>@solution.Notes</td>
+			<td>
+				@if(solution.GradeId is null)
+				{
+					<a class="btn btn-info" asp-controller="EvaluationGrade" asp-action="EvaluateSolution" asp-route-solutionId="@solution.Id">Evaluate Solution</a>
+				}else
+				{
+					<a class="btn btn-info " asp-controller="EvaluationGrade" asp-action="EvaluateSolution" asp-route-solutionId="@solution.Id">Evaluated</a>
+
+				}
+			</td>
+
+		</tr>
+
+
+	}
+</table>

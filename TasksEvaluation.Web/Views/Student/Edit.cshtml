@@ -1,0 +1,76 @@
+﻿@using TasksEvaluation.Core.DTOs 
+@using TasksEvaluation.Web.ViewModels
+@using System.IO
+
+@model StudentDto 
+
+@{
+	ViewData["Title"] = "Edit";
+
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+	option[value = "0"] {
+		display: none;
+	}
+</style>
+
+<h3>Edit Student</h3>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Edit" enctype="multipart/form-data">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="FullName" class="control-label"></label>
+				<input asp-for="FullName" class="form-control" />
+				<span asp-validation-for="FullName" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Email" class="control-label"></label>
+				<input asp-for="Email" class="form-control" />
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="MobileNumber" class="control-label"></label>
+				<input asp-for="MobileNumber" class="form-control" />
+				<span asp-validation-for="MobileNumber" class="text-danger"></span>
+			</div>
+
+
+			<div class="form-group">
+				<label asp-for="ProfilePicFile" class="control-label"></label>
+				@if (Model.ProfilePic != null)
+				{
+					<img src="@Model.ProfilePic" style="height:150px;width:auto; display:block" alt="Profile Picture" class="img-thumbnail" />
+				}
+				<input asp-for="ProfilePicFile" class="form-control" type="file" />
+				<span asp-validation-for="ProfilePicFile" class="text-danger"></span>
+			</div> 
+
+			<div class="form-group">
+				<label asp-for="GroupId" class="control-label">Group</label>
+				<select asp-for="GroupId" class="form-control" asp-items="@ViewBag.GroupId">
+				</select>
+			</div>
+			<div class="form-group mt-3">
+				<input type="submit" value="Save" class="btn btn-primary" />
+				<a class="btn btn-secondary" asp-action="GetAllStudents">Back to List</a>
+
+			</div>
+
+		</form>
+	</div>
+</div>
+
+<div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

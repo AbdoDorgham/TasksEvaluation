@@ -1,0 +1,57 @@
+﻿
+@using TasksEvaluation.Core.DTOs
+@using TasksEvaluation.Web.ViewModels
+@model SolutionCreateVM
+
+@{
+	ViewData["Title"] = "Create Solution";
+	var studentId = ViewData["StudentId"] as int?;
+	var assignmentId = ViewData["AssignmentId"] as int?;
+	// var loginAsStudentVM = ViewData["LoginAsStudentVM"] as LoginAsStudentVM;
+}
+
+<h3>Add Solution</h3>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Create" method="post" enctype="multipart/form-data">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<input asp-for="StudentId" type="hidden" value="@studentId" />
+				<span asp-validation-for="StudentId" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input asp-for="AssignmentId" type="hidden" value="@assignmentId" />
+				<span asp-validation-for="AssignmentId" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="SolutionFile" class="control-label"></label>
+				<input asp-for="SolutionFile" class="form-control" type="file" />
+				<span asp-validation-for="SolutionFile" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Notes" class="control-label"></label>
+				<textarea asp-for="Notes" class="form-control" rows="5"></textarea>
+				<span asp-validation-for="Notes" class="text-danger"></span>
+			</div>
+
+
+
+			<div class="form-group mt-3">
+				<input type="submit" value="Add Solution" class="btn btn-primary" />
+				<a class="btn btn-secondary" href="javascript:void(0);" onclick="window.history.back();">Back to Assignments</a>
+
+			</div>
+
+		</form>
+	</div>
+</div>
+
+<div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

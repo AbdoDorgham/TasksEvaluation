@@ -1,0 +1,34 @@
+﻿@using TasksEvaluation.Web.ViewModels
+
+@model LoginAsStudentVM
+
+@{ 
+    ViewData["Title"] = "Login as Student";
+}
+
+<div class="container-fluid  d-flex align-items-center justify-content-center mt-4">
+    <div class="col-md-4 card p-3">
+        <h2 class="text-center text-primary">Login as Student </h2>
+        <form asp-controller="Student" asp-action="LoginAsStudent" method="post">
+
+            <div class="mb-1">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row mt-2 d-flex align-items-center justify-content-center">
+
+                <input type="submit" value="Login as Student" class="btn btn-primary col-5" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

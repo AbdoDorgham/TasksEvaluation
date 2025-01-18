@@ -1,0 +1,59 @@
+﻿@using TasksEvaluation.Core.DTOs
+@using TasksEvaluation.Web.Controllers
+@model IEnumerable<AssignmentDto>
+@{
+	ViewData["Title"] = "Assignments Per Student";
+	var student = ViewData["Student"] as StudentDto;
+	var grades = ViewData["Grades"] as IEnumerable<EvaluationGradeDto>;
+}
+
+
+<h3 class="text-center mt-4">Your Assignment List</h3>
+<div class="container d-flex m-2">
+	<div class="row container-fluid">
+	@foreach (var assignment in Model)
+	{
+		  
+@* 				int x = assignment.Solutions.Where(s => s.StudentId == student.Id).Count();
+			
+		<h1>@x</h1>
+		<h1>@student.Id</h1> *@
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-body text-center">
+					<h5 class="card-title">@assignment.Title</h5>
+					<h5 class="card-title">@assignment.Description</h5>
+					<p class="card-text text-danger fw-bold">DeadLine : @assignment.Deadline</p>
+					@if (assignment.Solutions.Where(s => s.StudentId == student.Id).Count() == 0 @* || assignment.Solutions.Any(s => s.StudentId != student.Id)  *@ ) 
+					{
+						<a class="btn btn-primary" href="@Url.Action(nameof(SolutionController.Create),"Solution",
+										new { studentId = student.Id, assignmentId = assignment.Id  })">Upload Solution</a>
+
+					}
+					else
+					{
+						<button class="btn btn-primary" type="submit" disabled="disabled">Solution Uploaded</button>
+						@*  <a class="btn btn-secondary" href="@Url.Action(nameof(EvaluationGradeController.ShowGrade),"EvaluationGrade",
+										new { solutionId = assignment.Solution.Id})">Show Grade</a>  *@
+						<h5 class="mt-2">
+							@{
+								if(assignment.Solutions.Where(s => s.StudentId == student.Id)?.FirstOrDefault().GradeId is null)
+								{
+									@:Your Solution Under Evaluation.
+								} else
+								{
+									@:Grade : @grades.FirstOrDefault(e => e.Id == assignment.Solutions.FirstOrDefault(s => s.StudentId == student.Id).GradeId).Grade
+								}
+
+							}
+						</h5>
+					}
+				</div>
+			</div>
+	</div>
+		
+
+	}
+
+	</div>
+</div>
