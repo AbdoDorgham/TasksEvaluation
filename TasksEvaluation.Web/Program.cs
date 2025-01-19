@@ -18,8 +18,6 @@ using TasksEvaluation.Web;
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Add First Push
-int x = 5;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 // Register Fluent Validation
@@ -30,7 +28,6 @@ builder.Services.AddAutoMapper(cfg => { cfg.AddExpressionMapping(); }, typeof(Ma
 // Register Context File 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
