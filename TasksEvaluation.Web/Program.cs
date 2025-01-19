@@ -17,6 +17,9 @@ using TasksEvaluation.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Add First Push
+int x = 5;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 // Register Fluent Validation
