@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,15 +14,23 @@ namespace TaskEvaluation.InfraStructure.Helpers
 {
 	public static class DbInitializer
 	{
-		public static void Seed(IApplicationBuilder app)
+		public static async void Seed(IApplicationBuilder app)
 		{
 			// Register the context file (ApplicationDbCotext)
 			ApplicationDbContext context = app.ApplicationServices.CreateScope()
 											.ServiceProvider
 											.GetRequiredService<ApplicationDbContext>();
 
-			#region Data Will be Seeding in DB
-			var courses = new List<Course>
+            var userManager = app.ApplicationServices.CreateScope()
+                                            .ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = app.ApplicationServices.CreateScope()
+                                            .ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+
+
+
+            #region Data Will be Seeding in DB
+            var courses = new List<Course>
 			{
 				new Course() { Id = 1 ,Title = "Front End"  },
 				new Course() { Id = 2 ,Title = "Back End"  }
@@ -40,6 +49,7 @@ namespace TaskEvaluation.InfraStructure.Helpers
 				new EvaluationGrade() { Id = 3 , Grade = "Good"}
 
 			};
+
 			#endregion
 
 
@@ -78,10 +88,33 @@ namespace TaskEvaluation.InfraStructure.Helpers
 			}
 
 
+			// Seeding main Admin with Role 
+            string mainAdminpassword = "2580zamalek";
+            IdentityUser mainAdmin = new IdentityUser()
+            {
+                UserName = "Abdo_Dorgham",
+                Email = "abdodorgham257@gmail.com",
+                PhoneNumber = "01068117863"
+
+            };
+
+			IdentityRole adminRole = new IdentityRole()
+			{
+				Name = "admin"
+			};
+			if(!userManager.Users.Any())
+			{
+				await userManager.CreateAsync(mainAdmin , mainAdminpassword);
+				
+			}
+
+            if (!roleManager.Roles.Any())
+            {
+				await roleManager.CreateAsync(adminRole);
+				await userManager.AddToRoleAsync(mainAdmin, adminRole.Name);
+            }
 
 
-
-
-		}
+        }
 	}
 }

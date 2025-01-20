@@ -255,7 +255,7 @@ namespace TaskEvaluation.InfraStructure.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Assignments");
+                    b.ToTable("Assignments", (string)null);
                 });
 
             modelBuilder.Entity("TasksEvaluation.Core.Entities.Business.Course", b =>
@@ -286,7 +286,7 @@ namespace TaskEvaluation.InfraStructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("TasksEvaluation.Core.Entities.Business.EvaluationGrade", b =>
@@ -312,7 +312,7 @@ namespace TaskEvaluation.InfraStructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EvaluationGrades");
+                    b.ToTable("EvaluationGrades", (string)null);
                 });
 
             modelBuilder.Entity("TasksEvaluation.Core.Entities.Business.Group", b =>
@@ -343,7 +343,7 @@ namespace TaskEvaluation.InfraStructure.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("TasksEvaluation.Core.Entities.Business.Solution", b =>
@@ -387,7 +387,7 @@ namespace TaskEvaluation.InfraStructure.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Solutions");
+                    b.ToTable("Solutions", (string)null);
                 });
 
             modelBuilder.Entity("TasksEvaluation.Core.Entities.Business.Student", b =>
@@ -429,7 +429,7 @@ namespace TaskEvaluation.InfraStructure.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

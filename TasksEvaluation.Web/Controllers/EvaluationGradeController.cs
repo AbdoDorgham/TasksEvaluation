@@ -42,11 +42,23 @@ namespace TasksEvaluation.Web.Controllers
 		public async Task< IActionResult> EvaluateSolution(SolutionGradeVM solutionGradeVM)
         {
             var solution = await _solutionService.GetById(solutionGradeVM.SolutionId.Value);
-            solution.GradeId = solutionGradeVM.GradeId;
-            
-            _solutionService.Update(solution);
-            await _unitOfWork.Complete();
-            return RedirectToAction(nameof(SolutionController.GetAllSolutions), "Solution");
+
+            if (solutionGradeVM.GradeId != 0)
+            {
+                solution.GradeId = solutionGradeVM.GradeId;
+                _solutionService.Update(solution);
+                await _unitOfWork.Complete();
+                return RedirectToAction(nameof(SolutionController.GetAllSolutions), "Solution");
+            }
+            ModelState.AddModelError(string.Empty, "Please Choose Grade");
+			var grades = _evaluationGradeService.GetAll().Result.ToList();
+			var selectedGrade = new EvaluationGradeDto() { Id = 0, Grade = "Select Grade" };
+			grades.Add(selectedGrade);
+			ViewBag.GradeId = new SelectList(grades, nameof(EvaluationGradeDto.Id), nameof(EvaluationGradeDto.Grade),
+				solution.GradeId ?? 0);
+
+			ViewData["solution"] = solution;
+			return View(solutionGradeVM);
 		}
 
         public async Task<IActionResult> ShowGrade(int solutionId)

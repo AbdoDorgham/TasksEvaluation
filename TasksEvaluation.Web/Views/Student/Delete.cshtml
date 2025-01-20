@@ -9,27 +9,29 @@
 	Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-  <div class="text-center">
-	<table class="table table-bordered table-striped">
-		<tr>
-			<th>Student Name</th>
-			<th>Student Phone</th>
-			<th>Student Email</th>
-			<th>Student Photo</th>
-
-		</tr>
-
-		<tr>
-			<td class="">@Model.FullName</td>
-			<td>@Model.MobileNumber</td>
-			<td>@Model.Email</td>
-			<td><img height="50px" width="50px" src="@Model.ProfilePic" alt="Alternate Text" /></td>
-		</tr>
 
 
-	</table>
-	<h3>Are you Sure to Delete @Model.FullName Student ? </h3>
-	<form asp-action="Delete">
+<h3>Delete Student</h3>
+<hr />
+
+<div>
+ 	<div>
+		<strong>Name:</strong> @Model.FullName
+	</div>
+	<div>
+		<strong>Mobile Number:</strong> @Model.MobileNumber
+	</div>
+	<div>
+		<strong>Email:</strong> @Model.Email
+	</div>
+	<div>
+		<strong>Profile Picture:</strong><br />
+		<img src="@Model.ProfilePic" alt="Student Photo" style="width: 150px; height: auto;" />
+	</div>
+</div>
+
+<h3 class="mt-2">Are you Sure to Delete @Model.FullName ? </h3>
+<form asp-action="Delete" > 
 		<div class="form-group">
 			<input asp-for="Id" hidden class="form-control" />
 			<input type="submit" value="Delete" class="btn btn-danger" />
@@ -39,4 +41,4 @@
 
 	</form>
 
-</div>
+

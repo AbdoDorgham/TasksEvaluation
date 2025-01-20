@@ -12,7 +12,7 @@
 
 <div class="row d-flex align-items-center justify-content-center">
     <div class="col-md-4 card p-3">
-        <h2 class="text-center text-primary">Register</h2>
+        <h2 class="text-center text-primary">Create Instructor</h2>
         <form asp-action="Register" method="post">
             <div class="mb-1">
                 <label asp-for="Username" class="control-label"></label>
@@ -40,13 +40,13 @@
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row">
-                <div class="col-8">
+            <div class="text-center" >
+@*                 <div class="col-8">
                     <a asp-action="Login" class="text-decoration-none float-start mt-2">Have account ?</a>
-                </div>
-                <div class="col-4">
-                    <input type="submit" value="Register" class="btn btn-primary  float-end" />
-                </div>
+                </div> *@
+               
+                    <input type="submit" value="Create" class="btn btn-primary" />
+           
             </div>
         </form>
     </div>

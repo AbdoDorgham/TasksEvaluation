@@ -1,0 +1,43 @@
+﻿@using TasksEvaluation.Web.ViewModels.AccountViewModels
+@model DeleteUserVM
+
+
+@{
+    ViewData["Title"] = "Remove Instructor";
+}
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-4 card p-3">
+        <h2 class="text-center text-primary">Remove Instructor</h2>
+        <form asp-action="DeleteUser" asp-controller="Account" method="post">
+            <div class="mb-1">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-1 text-center">
+
+                <input type="submit" value="Remove" class="btn btn-primary" />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

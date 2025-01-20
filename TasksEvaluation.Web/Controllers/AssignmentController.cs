@@ -59,7 +59,13 @@ namespace TasksEvaluation.Web.Controllers
 				await _unitOfWork.Complete();
 				return RedirectToAction(nameof(GetAllAssignments));
 			}
-			return View(assignment);
+
+            var selectedGroup = new GroupDto() { Id = 0, Title = "Select Group" };
+            var allGroups = _groupService.GetAll().Result.ToList();
+            allGroups.Add(selectedGroup);
+            ViewBag.GroupId = new SelectList(allGroups, nameof(Group.Id), nameof(Group.Title)
+                , assignment.GroupId);
+            return View(assignment);
 		}
 
   

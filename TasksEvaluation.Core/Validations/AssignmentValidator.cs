@@ -20,6 +20,8 @@ namespace TasksEvaluation.Core.Validations
                 .MaximumLength(250);
             RuleFor(a => a.Deadline)
                 .GreaterThan(DateTime.Now);
+            RuleFor(a => a.GroupId)
+                .NotEqual(0).WithMessage("Please Select Group");
 
             
         }

@@ -9,6 +9,7 @@
 
 
 <h3 class="text-center mt-4">Your Assignment List</h3>
+
 <div class="container d-flex m-2">
 	<div class="row container-fluid">
 	@foreach (var assignment in Model)
@@ -32,7 +33,7 @@
 					}
 					else
 					{
-						<button class="btn btn-primary" type="submit" disabled="disabled">Solution Uploaded</button>
+						<button class="btn btn-success" type="submit" disabled="disabled">Solution Uploaded</button>
 						@*  <a class="btn btn-secondary" href="@Url.Action(nameof(EvaluationGradeController.ShowGrade),"EvaluationGrade",
 										new { solutionId = assignment.Solution.Id})">Show Grade</a>  *@
 						<h5 class="mt-2">

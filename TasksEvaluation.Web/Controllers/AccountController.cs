@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -41,6 +42,7 @@ namespace TasksEvaluation.Web.Controllers
 			return View(model);
 		}
 
+        [Authorize(Roles = "admin")]
 		public IActionResult Register()
 		{
 			return View();
@@ -48,7 +50,8 @@ namespace TasksEvaluation.Web.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Register(RegisterViewModel model)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Register(RegisterViewModel model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -87,7 +90,7 @@ namespace TasksEvaluation.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync(User); // .Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value
+                var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                     return NotFound("The User is not found.");
                 var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
@@ -191,9 +194,36 @@ namespace TasksEvaluation.Web.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
+        public IActionResult DeleteUser()
+        {
+            return View();
+        }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> DeleteUser(DeleteUserVM deleteUserVM)
+        {
 
+            if(ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(deleteUserVM.UserName);
+                if (user is null)
+                    return NotFound();
+
+                if(user.Email == deleteUserVM.Email)
+                {
+                    var result = await _userManager.DeleteAsync(user);
+                    if (result.Succeeded)
+                        return RedirectToAction(nameof(StudentController.GetAllStudents), "Student");
+
+                }
+                    
+            }
+            return View(deleteUserVM);
+        }
 
 
 

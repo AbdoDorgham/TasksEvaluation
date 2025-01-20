@@ -41,36 +41,3 @@
 		</table>
 	</div>
 
-@* else
-{
-	<h3 class="text-center">Your Assignment List</h3>
-	<div class="row">
-		@foreach (var assignment in Model)
-		{
-
-			<div class="col-sm-4">
-				<div class="card">
-					<div class="card-body text-center">
-						<h5 class="card-title">@assignment.Title</h5>
-						<h5 class="card-title">@assignment.Description</h5>
-						<p class="card-text text-danger fw-bold">DeadLine : @assignment.Deadline</p>
-						@if (assignment.Solution is null)
-						{
-							<a class="btn btn-primary" href="@Url.Action(nameof(SolutionController.Create),"Solution",
-										new { studentId = student.Id, assignmentId = assignment.Id  })">Upload Solution</a>
-
-						}
-						else
-						{
-							<button class="btn btn-primary" type="submit" disabled="disabled">Solution Uploaded</button>
-							<a class="btn btn-secondary" href="@Url.Action(nameof(EvaluationGradeController.ShowGrade),"EvaluationGrade",
-										new { solutionId = assignment.Solution.Id})">Show Grade</a>
-						}
-					</div>
-				</div>
-			</div>
-
-		}
-	</div>
-
-} *@

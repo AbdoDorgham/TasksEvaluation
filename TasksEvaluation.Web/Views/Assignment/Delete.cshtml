@@ -9,25 +9,30 @@
 	Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
- <div class="text-center">
-	<table class="table table-bordered table-striped">
-		<tr>
-			<th>Assignment Title</th>
-			<th>Assignment Description</th>
-			<th>Assignment DeadLine</th>
-
-		</tr>
-
-		<tr>
-			<td class="">@Model.Title</td>
-			<td>@Model.Description</td>
-			<td>@Model.Deadline</td>
-
-		</tr>
 
 
-	</table>
-	<h3>Are you Sure to Delete @Model.Title Assignment ? </h3>
+
+
+<h3>Delete Assignment</h3>
+<hr />
+
+<div>
+	<div>
+		<strong>Title:</strong> @Model.Title
+	</div>
+	<div>
+		<strong>Description:</strong> @Model.Description
+	</div>
+	<div>
+		<strong>DeadLine:</strong> @Model.Deadline
+	</div>
+	<div>
+		
+	</div>
+</div>
+
+
+	<h3>Are you Sure to Delete @Model.Title ? </h3>
 	<form asp-action="Delete">
 		<div class="form-group">
 			<input asp-for="Id" hidden class="form-control" />
@@ -38,4 +43,4 @@
 
 	</form>
 
-</div>
+
