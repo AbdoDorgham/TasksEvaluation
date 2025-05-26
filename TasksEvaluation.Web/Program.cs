@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using TasksEvaluation.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-
+Console.WriteLine();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

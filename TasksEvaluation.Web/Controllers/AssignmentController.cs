@@ -32,7 +32,9 @@ namespace TasksEvaluation.Web.Controllers
 		public async Task<IActionResult> GetAllAssignments()
 		{
 			var assignments = await _assignmentService.GetAssignmentsIncludeGroups();
-			return View(assignments);
+			 return View(assignments);
+
+		
 		}
 
         public ActionResult Create()
